@@ -26,7 +26,8 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', random_secret_key)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', False)
 
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS',['127.0.0.1', 'localhost'])
+hosts_allow = os.getenv('DJANGO_ALLOWED_HOSTS','127.0.0.1,localhost')
+ALLOWED_HOSTS = hosts_allow.split(',')
 
 
 # Application definition
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'bingo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
