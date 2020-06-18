@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"> 
+    <title>Bingo das Sílabas</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="jumbotron">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <p class="lead" style="text-align: center;">Venha se divertir com as crianças e a família no:</p>
+                    <h1 class="display-3" style="text-align: center;">Bingo das Sílabas</h1>
+                    <p class="lead" style="text-align: center;">Clique em "Sortear" para começar o jogo e para sortear uma nova sílaba</p>
+                    <p style="text-align: center;"><a class="btn btn-lg btn-success" href="{% url "core:sortear" %}" role="button">SORTEAR</a></p>
+                    {% block button %}
+                    {% endblock %}
+                    <p style="text-align: center;"><a class="btn btn-lg btn-outline-primary" href="{% url "core:cartelas" %}" target="_blank" role="button">GERAR CARTELAS</a></p>
+                </div>
+            </div>
+        {% block content %}
+        {% endblock %}
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-3">
+                <div class="card" style="border: unset;">
+                    <div class="card-body">
+                        <h5 class="card-header" style="text-align: center; background-color: unset;">
+                            SIGA-ME
+                        </h5>
+                        <p class="card-text" style="text-align: center;">
+                            <a class="btn-floating btn-lg btn-web" type="button" role="button" href="https://ozorest.me"><i class="fa fa-globe"></i></a>
+                            <a class="btn-floating btn-lg btn-git" type="button" role="button" href="https://github.com/ozorest"><i class="fab fa-github"></i></a>
+                            <a class="btn-floating btn-lg btn-dev" type="button" role="button" href="https://dev.to/ozorest"><i class="fab fa-dev"></i></a>
+                            <a class="btn-floating btn-lg btn-li" type="button" role="button" href="https://linkedin.com/in/tozores"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn-floating btn-lg btn-tw" type="button" role="button" href="https://twitter.com/0zorest"><i class="fab fa-twitter"></i></a>
+                        </p>
+                    </div>
+                    <div class="card-footer" style="border: unset; text-align: center;">
+                        © 2020 Thiago Ozores
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

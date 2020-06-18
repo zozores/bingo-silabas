@@ -1,0 +1,46 @@
+body {
+    font-family: 'Balsamiq Sans', cursive !important;
+}
+
+.jumbotron {
+    padding: 1em 2em !important;
+    background-color: lightgoldenrodyellow !important;
+}
+
+table.table-bordered {
+    border:1px solid black;
+    margin-top:20px;
+}
+
+table.table-bordered > thead > tr > th {
+    border:1px solid black;
+}
+
+table.table-bordered > tbody > tr > td {
+    border:1px solid black;
+}
+
+.btn-li {
+    background-color: #3b5998 !important;
+    color: white !important;
+}
+
+.btn-git {
+    background-color: #333 !important;
+    color: white !important;
+}
+
+.btn-tw {
+    background-color: #55acee !important;
+    color: white !important;
+}
+
+.btn-dev {
+    background-color: #000 !important;
+    color: white !important;
+}
+
+.btn-web {
+    background-color: darkslategray !important;
+    color: white !important;
+}

@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content=""/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <title>Bingo das Sílabas - Cartelas</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+        {% for k, v in dic.items %}
+            <div class="col-md-6">
+                <table class="table table-bordered table-sm">
+                    <tbody>
+                        {% for item in v %}
+                        <tr style="text-align: center; font-size: 2.2em;">
+                            {% for silaba in item %}
+                            <td><strong>{{ silaba }}</strong></td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+        </div>
+     </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends "home.html" %}
+
+{% block button %}
+    <p style="text-align: center;"><a class="btn btn-lg btn-danger" href="{% url "core:home" %}" role="button">RECOMEÇAR</a></p>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    {% if silaba_escolhida != None %}
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <h1 style="text-align: center; font-size: 10em;">
+                <span class="badge badge-info">{{ silaba_escolhida.silaba }}</span>
+            </h1>    
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <h5 class="card-header" style="text-align: center;">
+                    Sorteadas
+                </h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        {% for s in sorteadas %}
+                        <span class="badge badge-warning" style="font-size: 2em; margin-bottom: 0.25em;">{{ s }}</span>
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <h2 style="text-align: center;">
+                <span class="badge badge-danger">Não há mais sílabas para sortear, <a href="{% url "core:home" %}">clique aqui para recomeçar</a></span>
+            </h2>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
