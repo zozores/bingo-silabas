@@ -21,14 +21,24 @@
         <div class="row justify-content-center">
             <div class="col-md-3">
                 <p style="text-align: center; background-color: unset;">
-                    SIGA-ME
+                    COMPARTILHE
                 </p>
                 <p style="text-align: center;">
-                    <a class="btn-floating btn-lg btn-web" type="button" role="button" href="https://ozorest.me"><i class="fa fa-globe"></i></a>
-                    <a class="btn-floating btn-lg btn-git" type="button" role="button" href="https://github.com/ozorest"><i class="fab fa-github"></i></a>
-                    <a class="btn-floating btn-lg btn-dev" type="button" role="button" href="https://dev.to/ozorest"><i class="fab fa-dev"></i></a>
-                    <a class="btn-floating btn-lg btn-li" type="button" role="button" href="https://linkedin.com/in/tozores"><i class="fab fa-linkedin-in"></i></a>
-                    <a class="btn-floating btn-lg btn-tw" type="button" role="button" href="https://twitter.com/0zorest"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-lg btn-social btn-fb" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" title="Compartilhe esta página no Facebook">
+                        <i class="fab fa-facebook-square"></i>
+                    </a>
+                    <a class="btn btn-lg btn-social btn-tw" href="https://twitter.com/intent/tweet?text=Bingo&nbsp;das&nbsp;S&iacute;labas&amp;url={{ request.build_absolute_uri }}" target="_blank" title="Compartilhe esta página no Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-lg btn-social btn-wa" href="https://web.whatsapp.com/send?text=Bingo&nbsp;das&nbsp;S&iacute;labas&nbsp;{{ request.build_absolute_uri }}" target="_blank" title="Compartilhe esta página no WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a class="btn btn-lg btn-social btn-te" href="https://t.me/share/url?url={{ request.build_absolute_uri }}&text=Bingo&nbsp;das&nbsp;S&iacute;labas" target="_blank" title="Compartilhe esta página no Telegram">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a class="btn btn-lg btn-social btn-ma" href="mailto:?subject=Bingo&nbsp;das&nbsp;S&iacute;labas&amp;body={{ request.build_absolute_uri }}" target="_blank" title="Compartilhe esta página por email">
+                        <i class="fa fa-envelope"></i>
+                    </a>
                 </p>
                 <p style="text-align: center;">
                     © 2020 Thiago Ozores

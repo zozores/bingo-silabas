@@ -20,27 +20,42 @@ table.table-bordered > tbody > tr > td {
     border:1px solid black;
 }
 
-.btn-li {
+.btn-social,
+.btn-social:visited,
+.btn-social:focus,
+.btn-social:hover,
+.btn-social:active {
+    color: #ffffff;
+    text-decoration: none;
+    transition: opacity .15s ease-in-out;
+}
+
+.btn-social:hover,
+.btn-social:active {
+    opacity: .75;
+}
+
+.btn-fb {
     background-color: #3b5998 !important;
     color: white !important;
 }
 
-.btn-git {
-    background-color: #333 !important;
-    color: white !important;
-}
-
 .btn-tw {
-    background-color: #55acee !important;
+    background-color: #1da1f2 !important;
     color: white !important;
 }
 
-.btn-dev {
-    background-color: #000 !important;
+.btn-wa {
+    background-color: #25d366 !important;
     color: white !important;
 }
 
-.btn-web {
-    background-color: darkslategray !important;
+.btn-te {
+    background-color: #54a9eb !important;
+    color: white !important;
+}
+
+.btn-ma {
+    background-color: burlywood !important;
     color: white !important;
 }
