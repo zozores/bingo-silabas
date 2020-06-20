@@ -24,19 +24,19 @@
                     COMPARTILHE
                 </p>
                 <p style="text-align: center;">
-                    <a class="btn btn-lg btn-social btn-fb" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" title="Compartilhe esta página no Facebook">
+                    <a class="btn btn-lg btn-social btn-fb" href="{% url 'core:compartilhar' rede='facebook' %}" target="_blank" title="Compartilhe esta página no Facebook">
                         <i class="fab fa-facebook-square"></i>
                     </a>
-                    <a class="btn btn-lg btn-social btn-tw" href="https://twitter.com/intent/tweet?text=Bingo&nbsp;das&nbsp;S&iacute;labas&amp;url={{ request.build_absolute_uri }}" target="_blank" title="Compartilhe esta página no Twitter">
+                    <a class="btn btn-lg btn-social btn-tw" href="{% url 'core:compartilhar' rede='twitter' %}" target="_blank" title="Compartilhe esta página no Twitter">
                         <i class="fab fa-twitter"></i>
                     </a>
-                    <a class="btn btn-lg btn-social btn-wa" href="https://web.whatsapp.com/send?text=Bingo&nbsp;das&nbsp;S&iacute;labas&nbsp;{{ request.build_absolute_uri }}" target="_blank" title="Compartilhe esta página no WhatsApp">
+                    <a class="btn btn-lg btn-social btn-wa" href="{% url 'core:compartilhar' rede='whatsapp' %}" target="_blank" title="Compartilhe esta página no WhatsApp">
                         <i class="fab fa-whatsapp"></i>
                     </a>
-                    <a class="btn btn-lg btn-social btn-te" href="https://t.me/share/url?url={{ request.build_absolute_uri }}&text=Bingo&nbsp;das&nbsp;S&iacute;labas" target="_blank" title="Compartilhe esta página no Telegram">
+                    <a class="btn btn-lg btn-social btn-te" href="{% url 'core:compartilhar' rede='telegram' %}" target="_blank" title="Compartilhe esta página no Telegram">
                         <i class="fab fa-telegram"></i>
                     </a>
-                    <a class="btn btn-lg btn-social btn-ma" href="mailto:?subject=Bingo&nbsp;das&nbsp;S&iacute;labas&amp;body={{ request.build_absolute_uri }}" target="_blank" title="Compartilhe esta página por email">
+                    <a class="btn btn-lg btn-social btn-ma" href="{% url 'core:compartilhar' rede='email' %}" target="_blank" title="Compartilhe esta página por email">
                         <i class="fa fa-envelope"></i>
                     </a>
                 </p>

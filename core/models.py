@@ -13,3 +13,20 @@ class Silaba(models.Model):
 
     def __str__(self):
         return self.silaba
+
+
+class Compartilhamento(models.Model):
+    mes = models.IntegerField()
+    ano = models.IntegerField()
+    facebook = models.IntegerField(default=0)
+    twitter = models.IntegerField(default=0)
+    whatsapp = models.IntegerField(default=0)
+    telegram = models.IntegerField(default=0)
+    email = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ('mes', 'ano')
+        unique_together = ['mes', 'ano']
+
+    def __str__(self):
+        return f'{str(self.mes)}-{str(self.ano)}'
