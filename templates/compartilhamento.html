@@ -9,17 +9,17 @@
             {% if rede == 'facebook' %}
                 window.location = "https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}"
             {% elif rede == 'twitter' %}
-                window.location = "https://twitter.com/intent/tweet?text=Bingo&nbsp;das&nbsp;S&iacute;labas&amp;url={{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}"
+                window.location = "https://twitter.com/intent/tweet?url={{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}&text=Bingo das Sílabas"
             {% elif rede == 'whatsapp' %}
-                window.location = "https://web.whatsapp.com/send?text=Bingo&nbsp;das&nbsp;S&iacute;labas&nbsp;{{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}"
+                window.location = "https://web.whatsapp.com/send?text=Bingo das Sílabas {{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}"
             {% elif rede == 'telegram' %}
-                window.location = "https://t.me/share/url?url={{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}&text=Bingo&nbsp;das&nbsp;S&iacute;labas"
+                window.location = "https://t.me/share/url?url={{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}&text=Bingo das Sílabas"
             {% elif rede == 'email' %}
             window.location = "mailto:?subject=Bingo&nbsp;das&nbsp;S&iacute;labas&amp;body={{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}"
             {% endif %}
         }
     </script>
 </head>
-<body onload="setTimeout('redirectShare()',1000)">
+<body onload="setTimeout('redirectShare()',500)">
 </body>
 </html>

@@ -48,20 +48,20 @@ def compartilhar(request, rede):
     ano_hoje = datetime.today().year
     cid = Compartilhamento.objects.filter(mes=mes_hoje,ano=ano_hoje)
     if rede == 'facebook':
-        cid[0].facebook = cid[0].facebook + 1
-        cid[0].save()
+        n_facebook = cid[0].facebook + 1
+        cid.update(facebook=n_facebook)
     elif rede == 'twitter':
-        cid[0].twitter = cid[0].twitter + 1
-        cid[0].save()
+        n_twitter = cid[0].twitter + 1
+        cid.update(twitter=n_twitter)
     elif rede == 'whatsapp':
-        cid[0].whatsapp = cid[0].whatsapp + 1
-        cid[0].save() 
+        n_whatsapp = cid[0].whatsapp + 1
+        cid.update(whatsapp=n_whatsapp)
     elif rede == 'telegram':
-        cid[0].telegram = cid[0].telegram + 1
-        cid[0].save() 
+        n_telegram = cid[0].telegram + 1
+        cid.update(telegram=n_telegram)
     elif rede == 'email':
-        cid[0].email = cid[0].email + 1
-        cid[0].save() 
+        n_email = cid[0].email + 1
+        cid[0].update(email=n_email)
     return render(request, 'compartilhamento.html', {
         'rede': rede,
     })
