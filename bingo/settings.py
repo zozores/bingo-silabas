@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'core',
 ]
 
@@ -125,3 +126,5 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_ROOT = os.getenv('DJANGO_MEDIA_ROOT', os.path.join(BASE_DIR, "media"))
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

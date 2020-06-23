@@ -2,6 +2,7 @@
 
 {% block home %}
 <body>
+    <a class="github-fork-ribbon" href="https://github.com/ozorest/bingo-silabas" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
     <div class="container-fluid">
         <div class="jumbotron">
             <div class="row justify-content-center">
@@ -21,7 +22,7 @@
         <div class="row justify-content-center">
             <div class="col-md-3">
                 <p style="text-align: center; background-color: unset;">
-                    COMPARTILHE
+                    DEIXE AQUI O SEU <a href="{% url "core:comentario" %}">COMENTÁRIO</a> E COMPARTILHE
                 </p>
                 <p style="text-align: center;">
                     <a class="btn btn-lg btn-social btn-fb" href="#" onclick="return popitup('{% url 'core:compartilhar' rede='facebook' %}','facebook')" title="Compartilhe esta página no Facebook">

@@ -15,9 +15,10 @@ class Silaba(models.Model):
         return self.silaba
 
 
-class Compartilhamento(models.Model):
+class Metrica(models.Model):
     mes = models.IntegerField()
     ano = models.IntegerField()
+    sorteios = models.IntegerField(default=0)    
     facebook = models.IntegerField(default=0)
     twitter = models.IntegerField(default=0)
     whatsapp = models.IntegerField(default=0)
@@ -30,3 +31,24 @@ class Compartilhamento(models.Model):
 
     def __str__(self):
         return f'{str(self.mes)}-{str(self.ano)}'
+
+
+class Comentario(models.Model):
+    TIPO_CHOICES = (
+        ('E', 'Elogio'),
+        ('D', 'Dúvida'),
+        ('R', 'Reclamação'),
+        ('S', 'Sugestão'),
+        ('X', 'Outros'),
+    )
+    nome = models.CharField(max_length=100)
+    email = models.EmailField(blank=True, null=True)
+    tipo = models.CharField(max_length=1, choices=TIPO_CHOICES)
+    mensagem = models.TextField()
+    publicado = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('-publicado',)
+
+    def __str__(self):
+        return self.nome

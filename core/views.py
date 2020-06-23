@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Silaba, Compartilhamento
+from .models import Silaba, Metrica, Comentario
+from .forms import ComentarioForm
 from datetime import datetime
 import random
 
@@ -14,7 +15,15 @@ def home(request):
     list_silabas = list(Silaba.objects.all())
     return render(request, 'home.html')
 
+def publicar_metrica():
+    mes_hoje = datetime.today().month
+    ano_hoje = datetime.today().year
+    return Metrica.objects.filter(mes=mes_hoje,ano=ano_hoje)
+
 def sortear(request):
+    metrica = publicar_metrica()
+    n_sorteio = metrica[0].sorteios + 1
+    metrica.update(sorteios=n_sorteios)
     global list_silabas
     global list_sorteadas
     if len(list_silabas) == 0:
@@ -44,24 +53,36 @@ def cartelas(request):
     })
 
 def compartilhar(request, rede):
-    mes_hoje = datetime.today().month
-    ano_hoje = datetime.today().year
-    cid = Compartilhamento.objects.filter(mes=mes_hoje,ano=ano_hoje)
+    metrica = publicar_metrica()
     if rede == 'facebook':
-        n_facebook = cid[0].facebook + 1
-        cid.update(facebook=n_facebook)
+        n_facebook = metrica[0].facebook + 1
+        metrica.update(facebook=n_facebook)
     elif rede == 'twitter':
-        n_twitter = cid[0].twitter + 1
-        cid.update(twitter=n_twitter)
+        n_twitter = metrica[0].twitter + 1
+        metrica.update(twitter=n_twitter)
     elif rede == 'whatsapp':
-        n_whatsapp = cid[0].whatsapp + 1
-        cid.update(whatsapp=n_whatsapp)
+        n_whatsapp = metrica[0].whatsapp + 1
+        metrica.update(whatsapp=n_whatsapp)
     elif rede == 'telegram':
-        n_telegram = cid[0].telegram + 1
-        cid.update(telegram=n_telegram)
+        n_telegram = metrica[0].telegram + 1
+        metrica.update(telegram=n_telegram)
     elif rede == 'email':
-        n_email = cid[0].email + 1
-        cid[0].update(email=n_email)
+        n_email = metrica[0].email + 1
+        metrica.update(email=n_email)
     return render(request, 'compartilhamento.html', {
         'rede': rede,
+    })
+
+def comentario(request):
+    novo_comentario = None
+    if request.method == 'POST':
+        comentario_form = ComentarioForm(data=request.POST)
+        if comentario_form.is_valid():
+            novo_comentario = comentario_form.save(commit=False)
+            novo_comentario.save()
+    else:
+        comentario_form = ComentarioForm()
+    return render(request, 'comentario.html', {
+        'novo_comentario': novo_comentario,
+        'comentario_form': comentario_form
     })
