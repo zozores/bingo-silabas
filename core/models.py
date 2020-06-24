@@ -18,12 +18,12 @@ class Silaba(models.Model):
 class Metrica(models.Model):
     mes = models.IntegerField()
     ano = models.IntegerField()
-    sorteios = models.IntegerField(default=0)    
-    facebook = models.IntegerField(default=0)
-    twitter = models.IntegerField(default=0)
-    whatsapp = models.IntegerField(default=0)
-    telegram = models.IntegerField(default=0)
-    email = models.IntegerField(default=0)
+    sorteios = models.BigIntegerField(default=0)    
+    facebook = models.BigIntegerField(default=0)
+    twitter = models.BigIntegerField(default=0)
+    whatsapp = models.BigIntegerField(default=0)
+    telegram = models.BigIntegerField(default=0)
+    email = models.BigIntegerField(default=0)
 
     class Meta:
         ordering = ('mes', 'ano')
