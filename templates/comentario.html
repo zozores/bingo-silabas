@@ -10,9 +10,9 @@
           <div class="col-md-6">              
               <h1 class="display-3" style="text-align: center;">Bingo das Sílabas</h1>
               {% if novo_comentario %}
-                <h2>Muito obrigado pelo seu comentário!</h2>
+                <h2 style="text-align: center;">Muito obrigado pelo seu comentário!</h2>
               {% else %}
-                <h2>Registre aqui o seu comentário</h2>
+                <h2 style="text-align: center;">Registre aqui o seu comentário</h2>
                 <form method="POST">
                   {% csrf_token %}
                   {{ comentario_form|crispy }}

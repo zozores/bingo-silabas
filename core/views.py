@@ -20,10 +20,15 @@ def publicar_metrica():
     ano_hoje = datetime.today().year
     return Metrica.objects.filter(mes=mes_hoje,ano=ano_hoje)
 
+def silaba_escolhida(lista):
+    silaba = random.choice(lista)
+    lista.remove(silaba)
+    return silaba
+
 def sortear(request):
     metrica = publicar_metrica()
     n_sorteio = metrica[0].sorteios + 1
-    metrica.update(sorteios=n_sorteios)
+    metrica.update(sorteios=n_sorteio)
     global list_silabas
     global list_sorteadas
     if len(list_silabas) == 0:
@@ -36,11 +41,6 @@ def sortear(request):
         'silaba_escolhida': silaba_escolhida,
         'sorteadas': list_sorteadas,
     })
-
-def silaba_escolhida(lista):
-    silaba = random.choice(lista)
-    lista.remove(silaba)
-    return silaba
 
 def cartelas(request):
     dic = {}
