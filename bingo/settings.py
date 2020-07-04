@@ -29,7 +29,6 @@ DEBUG = os.getenv('DJANGO_DEBUG', False)
 hosts_allow = os.getenv('DJANGO_ALLOWED_HOSTS','127.0.0.1,localhost')
 ALLOWED_HOSTS = hosts_allow.split(',')
 
-
 # Application definition
 
 INSTALLED_APPS = [
