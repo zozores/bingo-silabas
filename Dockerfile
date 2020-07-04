@@ -2,17 +2,17 @@
 # BUILDER #
 ###########
 
-# pull official base image
+# baixa a imagem base como builder
 FROM python:3-alpine as builder
 
-# set work directory
+# define diretorio de trabalho
 WORKDIR /usr/src/app
 
-# set environment variables
+# define variaveis de ambiente
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# install psycopg2 dependencies
+# instala dependencias
 RUN apk update \
     && apk add gcc python3-dev musl-dev jpeg-dev zlib-dev libjpeg
 
@@ -22,7 +22,7 @@ RUN pip install --upgrade pip
 # COPY . .
 # RUN flake8 --ignore=E501,F401 .
 
-# install dependencies
+# instala dependencias do projeto
 COPY ./requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
 
@@ -31,38 +31,43 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requir
 # FINAL #
 #########
 
-# pull official base image
+# baixa a imagem base
 FROM python:3-alpine
 
-# create directory for the app user
-RUN mkdir -p /app
+# define diretorio da aplicacao
+ENV APP_HOME=/app
 
+# cria diretorio da aplicacao
+RUN mkdir -p $APP_HOME
+
+# define as variaveis com UID e GID do usuario app
+# para poderem ser sobreescritas se necessario
 ENV UID=1000
 ENV GID=$UID
 
-# create the app user
+# cria o usuario app
 RUN addgroup -g $GID -S app && adduser -S app -G app --uid $UID
 
-# create the appropriate directories
-ENV HOME=/app
-ENV APP_HOME=$HOME
+# define diretorio do usuario app sendo o mesmo do APP_HOME
+ENV HOME=$APP_HOME
 
+# define o APP_HOME como diretorio de trabalho
 WORKDIR $APP_HOME
 
-# install dependencies
+# instala dependencias puxando do builder
 RUN apk update
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --no-cache /wheels/*
 
-# copy project
+# copia o projeto da aplicacao
 COPY . $APP_HOME
 
-# chown all the files to the app user
+# da permissao para o usuario app em todo o diretorio APP_HOME
 RUN chown -R app:app $APP_HOME
 
-# change to the app user
+# troca para o usuario app
 USER app
 
-# run entrypoint.prod.sh
+# roda o gunicorn
 CMD ["gunicorn", "bingo.wsgi:application", "--bind", "0.0.0.0:8000"]
