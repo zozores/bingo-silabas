@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'bingo.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-DJANGO_USE_S3 = os.getenv('DJANGO_USE_S3', True)
+DJANGO_USE_S3 = os.getenv('DJANGO_USE_S3') == True
 
 if DJANGO_USE_S3:
     DATABASES = {
@@ -148,7 +148,6 @@ if DJANGO_USE_S3:
     DEFAULT_FILE_STORAGE = 'core.storage_backends.PublicMediaStorage'
 else:
     STATIC_URL = '/static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     MEDIA_ROOT = os.getenv('DJANGO_MEDIA_ROOT', os.path.join(BASE_DIR, "media"))
 
 STATICFILES_DIRS = [
