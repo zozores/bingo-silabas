@@ -9,7 +9,7 @@
             {% endblock %}
             <div class="row justify-content-center">
                 <div class="col-md-12">
-                    {% if request.get_full_path != '/sortear/' %}
+                    {% if 'sortear' not in request.get_full_path %}
                     <p class="lead" style="text-align: center;">Venha se divertir com as crianças e a família no:</p>
                     <h1 class="display-3" style="text-align: center;">Bingo das Sílabas</h1>
                     <p class="lead" style="text-align: center;">Clique em "Sortear" para começar o jogo e para sortear uma nova sílaba</p>

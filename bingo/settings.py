@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'storages',
+    'django_s3_sqlite',
     'core',
 ]
 
@@ -75,13 +77,23 @@ WSGI_APPLICATION = 'bingo.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+DJANGO_USE_S3 = os.getenv('DJANGO_USE_S3', True)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.getenv('DJANGO_DB_FILE', os.path.join(BASE_DIR, 'data/bingo.sqlite3')),
+if DJANGO_USE_S3:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django_s3_sqlite',
+            'NAME': os.getenv('DJANGO_DB_FILE', 'bingo.db'),
+            "BUCKET": os.getenv('AWS_DB_BUCKET_NAME'),
+        }
     }
-}
+else: 
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.getenv('DJANGO_DB_FILE', os.path.join(BASE_DIR, 'data/bingo.sqlite3')),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -118,10 +130,29 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+if DJANGO_USE_S3:
+    # aws settings
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_DEFAULT_ACL = None
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    # s3 static settings
+    STATIC_LOCATION = 'static'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+    STATICFILES_STORAGE = 'core.storage_backends.StaticStorage'
+    # s3 public media settings
+    PUBLIC_MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+    DEFAULT_FILE_STORAGE = 'core.storage_backends.PublicMediaStorage'
+else:
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    MEDIA_ROOT = os.getenv('DJANGO_MEDIA_ROOT', os.path.join(BASE_DIR, "media"))
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
-MEDIA_ROOT = os.getenv('DJANGO_MEDIA_ROOT', os.path.join(BASE_DIR, "media"))
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

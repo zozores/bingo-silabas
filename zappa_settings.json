@@ -1,0 +1,16 @@
+{
+    "production": {
+        "aws_region": "us-west-2",
+        "django_settings": "bingo.settings",
+        "profile_name": null,
+        "project_name": "bingo-app",
+        "runtime": "python3.8",
+        "s3_bucket": "bingo-zappa-bucket",
+        "environment_variables": {
+            "DJANGO_ALLOWED_HOSTS": "9ihsh13oj4.execute-api.us-west-2.amazonaws.com",
+            "AWS_DB_BUCKET_NAME": "bingo-zappa-data",
+            "AWS_STORAGE_BUCKET_NAME": "bingo-zappa-static",
+            "DJANGO_DB_FILE": "bingo.db"
+        }
+    }
+}

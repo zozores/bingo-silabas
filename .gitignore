@@ -10,7 +10,7 @@ __pycache__/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-*.sqlite3
+!bingo.sqlite3
 media
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
@@ -24,6 +24,7 @@ media
 
 # C extensions
 *.so
+!_sqlite3.so
 
 # Distribution / packaging
 .Python

@@ -11,6 +11,10 @@ django = "*"
 pillow = "*"
 django-crispy-forms = "*"
 gunicorn = "*"
+django-storages = "*"
+boto3 = "*"
+django-s3-sqlite = "*"
+zappa = "*"
 
 [requires]
 python_version = "3.8"
