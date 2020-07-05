@@ -2,11 +2,10 @@ version: '3'
 
 services:
   app:
-    build: .
-    volumes:
-      - ./data:/app/data:Z
-      - ./static:/app/static:Z
+    image: ozorest/bingosilabas
     ports:
       - 8000:8000
-    env_file:
-      - ./.env
+    environment:
+      - DJANGO_DEBUG=True
+      - DJANGO_USE_S3=False
+      - DJANGO_ALLOWED_HOSTS=*
