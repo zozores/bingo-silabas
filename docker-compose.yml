@@ -5,8 +5,5 @@ services:
     image: ozorest/bingosilabas
     ports:
       - 8000:8000
-    environment:
-      - DJANGO_DEBUG=True
-      - DJANGO_STATIC_USE_S3=False
-      - DJANGO_DB_USE_S3=False
-      - DJANGO_ALLOWED_HOSTS=*
+    volumes:
+      - "./bingo/.env.docker:/app/bingo/.env:Z"
