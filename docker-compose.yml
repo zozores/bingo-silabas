@@ -5,5 +5,3 @@ services:
     image: ozorest/bingosilabas
     ports:
       - 8000:8000
-    volumes:
-      - "./bingo/.env.docker:/app/bingo/.env:Z"

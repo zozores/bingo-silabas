@@ -18,10 +18,10 @@ from django.core.management.utils import get_random_secret_key
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = environ.Env(
-    DJANGO_DEBUG=(bool, False),
+    DJANGO_DEBUG=(bool, True),
     DJANGO_ALLOWED_HOSTS=(list, ['*']),
-    DJANGO_DB_USE_S3=(bool, True),
-    DJANGO_STATIC_USE_S3=(bool, True),
+    DJANGO_DB_USE_S3=(bool, False),
+    DJANGO_STATIC_USE_S3=(bool, False),
     DJANGO_MEDIA_ROOT=(str, os.path.join(BASE_DIR, "media")),
 )
 environ.Env.read_env()
