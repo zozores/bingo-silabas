@@ -5,8 +5,7 @@
         "profile_name": null,
         "project_name": "bingo-app",
         "runtime": "python3.8",
-        "s3_bucket": "bingo-zappa-bucket",
-        "remote_env": "s3://bingo-zappa-data/zappa-config-dev.json"
+        "s3_bucket": "bingo-zappa-bucket"
     },
     "prd": {
         "aws_region": "us-west-2",
@@ -16,7 +15,6 @@
         "domain": "bingosilabas.ozorest.me",
         "certificate_arn": "arn:aws:acm:us-east-1:773316098889:certificate/23eb1b29-5464-48c1-8127-e3bc29be7411",
         "runtime": "python3.8",
-        "s3_bucket": "bingo-zappa-bucket",
-        "remote_env": "s3://bingo-zappa-data/zappa-config.json"
+        "s3_bucket": "bingo-zappa-bucket"
     }
 }

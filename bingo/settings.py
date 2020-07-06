@@ -23,12 +23,6 @@ env = environ.Env(
     DJANGO_DB_USE_S3=(bool, True),
     DJANGO_STATIC_USE_S3=(bool, True),
     DJANGO_MEDIA_ROOT=(str, os.path.join(BASE_DIR, "media")),
-    AWS_DB_FILE=(str),
-    AWS_DB_BUCKET_NAME=(str),
-    AWS_S3_BUCKET_NAME=(str),
-    AWS_ACCESS_KEY_ID=(str),
-    AWS_SECRET_ACCESS_KEY=(str),
-    AWS_REGION=(str),
 )
 environ.Env.read_env()
 
