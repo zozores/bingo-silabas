@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4a5d168f849826aa22e81e820e98d4e7db5bd1912192b0e3e32578f7153efdf1"
+            "sha256": "5fbc5d2995129a7b365120c2624cda44b29b3d76fa402d73e856b578aaafd9ff"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -88,6 +88,14 @@
             "index": "pypi",
             "version": "==1.9.1"
         },
+        "django-environ": {
+            "hashes": [
+                "sha256:6c9d87660142608f63ec7d5ce5564c49b603ea8ff25da595fd6098f6dc82afde",
+                "sha256:c57b3c11ec1f319d9474e3e5a79134f40174b17c7cc024bbb2fad84646b120c4"
+            ],
+            "index": "pypi",
+            "version": "==0.4.5"
+        },
         "django-s3-sqlite": {
             "hashes": [
                 "sha256:a4e6bc25fe3c38d17cbb6cf31ca5735289186a24151dc21ebc819f6023e623e2",
@@ -95,6 +103,13 @@
             ],
             "index": "pypi",
             "version": "==0.0.3"
+        },
+        "django-s3-storage": {
+            "hashes": [
+                "sha256:f938740590ab5e5189653228e52094ddacaaf0f0faf0d719ca7a0b2391906161"
+            ],
+            "index": "pypi",
+            "version": "==0.13.2"
         },
         "django-storages": {
             "hashes": [

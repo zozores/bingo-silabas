@@ -11,23 +11,38 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import environ
 from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+env = environ.Env(
+    DJANGO_DEBUG=(bool, False),
+    DJANGO_ALLOWED_HOSTS=(list, ['*']),
+    DJANGO_DB_USE_S3=(bool, True),
+    DJANGO_STATIC_USE_S3=(bool, True),
+    DJANGO_MEDIA_ROOT=(str, os.path.join(BASE_DIR, "media")),
+    AWS_DB_FILE=(str),
+    AWS_DB_BUCKET_NAME=(str),
+    AWS_S3_BUCKET_NAME=(str),
+    AWS_ACCESS_KEY_ID=(str),
+    AWS_SECRET_ACCESS_KEY=(str),
+    AWS_REGION=(str),
+)
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 random_secret_key = get_random_secret_key()
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', random_secret_key)
+SECRET_KEY = random_secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DJANGO_DEBUG', False)
+DEBUG = env('DJANGO_DEBUG')
 
-hosts_allow = os.getenv('DJANGO_ALLOWED_HOSTS','127.0.0.1,localhost')
-ALLOWED_HOSTS = hosts_allow.split(',')
+ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS')
 
 # Application definition
 
@@ -39,7 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'storages',
+    'django_s3_storage',
     'django_s3_sqlite',
     'core',
 ]
@@ -77,22 +92,19 @@ WSGI_APPLICATION = 'bingo.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-DJANGO_USE_S3 = os.getenv('DJANGO_USE_S3') == True
+DJANGO_DB_USE_S3 = env('DJANGO_DB_USE_S3')
 
-if DJANGO_USE_S3:
+if DJANGO_DB_USE_S3:
     DATABASES = {
         'default': {
             'ENGINE': 'django_s3_sqlite',
-            'NAME': os.getenv('DJANGO_DB_FILE', 'bingo.db'),
-            "BUCKET": os.getenv('AWS_DB_BUCKET_NAME'),
+            'NAME': env('AWS_DB_FILE'),
+            "BUCKET": env('AWS_DB_BUCKET_NAME'),
         }
     }
 else: 
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.getenv('DJANGO_DB_FILE', os.path.join(BASE_DIR, 'data/bingo.sqlite3')),
-        }
+        'default': env.db('SQLITE_URL', default='sqlite://./data/bingo.sqlite3')
     }
 
 # Password validation
@@ -130,28 +142,32 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-if DJANGO_USE_S3:
-    # aws settings
-    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
-    AWS_DEFAULT_ACL = None
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+
+# aws settings
+DJANGO_STATIC_USE_S3 = env('DJANGO_STATIC_USE_S3')
+
+if DJANGO_STATIC_USE_S3:
+    AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+    AWS_S3_BUCKET_NAME = env('AWS_S3_BUCKET_NAME')
+    AWS_S3_BUCKET_NAME_STATIC = AWS_S3_BUCKET_NAME
+    AWS_S3_KEY_PREFIX = "media"
+    AWS_S3_KEY_PREFIX_STATIC = "static"
+    AWS_REGION = env('AWS_REGION')
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_S3_BUCKET_NAME}.s3.amazonaws.com'
     # s3 static settings
-    STATIC_LOCATION = 'static'
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-    STATICFILES_STORAGE = 'core.storage_backends.StaticStorage'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+    STATICFILES_STORAGE = 'django_s3_storage.storage.StaticS3Storage'
     # s3 public media settings
     PUBLIC_MEDIA_LOCATION = 'media'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
-    DEFAULT_FILE_STORAGE = 'core.storage_backends.PublicMediaStorage'
+    DEFAULT_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'
 else:
     STATIC_URL = '/static/'
-    MEDIA_ROOT = os.getenv('DJANGO_MEDIA_ROOT', os.path.join(BASE_DIR, "media"))
+    MEDIA_ROOT = env('DJANGO_MEDIA_ROOT')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+     os.path.join(BASE_DIR, "static"),
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

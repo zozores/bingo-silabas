@@ -217,4 +217,7 @@ dmypy.json
 # Ignore all local history of files
 .history
 
+# Certs
+certs/*
+
 # End of https://www.toptal.com/developers/gitignore/api/python,django,visualstudiocode
