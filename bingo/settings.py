@@ -28,9 +28,9 @@ env = environ.Env(
 
 ENVIRONMENT = os.getenv('ENVIRONMENT')
 if ENVIRONMENT == 'PRD':
-    environ.Env.read_env()
+    environ.Env.read_env(env_file=f'{BASE_DIR}/.env')
 elif ENVIRONMENT == 'DEV':
-    environ.Env.read_env(env_file='.env.dev')
+    environ.Env.read_env(env_file=f'{BASE_DIR}/.env.dev')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
