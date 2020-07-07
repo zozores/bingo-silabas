@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import environ
 from django.core.management.utils import get_random_secret_key
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +25,12 @@ env = environ.Env(
     DJANGO_STATIC_USE_S3=(bool, False),
     DJANGO_MEDIA_ROOT=(str, os.path.join(BASE_DIR, "media")),
 )
-environ.Env.read_env()
+
+ENVIRONMENT = os.getenv('ENVIRONMENT')
+if ENVIRONMENT == 'PRD':
+    environ.Env.read_env()
+elif ENVIRONMENT == 'DEV':
+    environ.Env.read_env(env_file='.env.dev')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
