@@ -12,8 +12,10 @@
         </div>
         <div class="col-md-4">
             <h1 style="text-align: center; font-size: 10em;">
-                <span class="badge badge-info">{{ silaba_escolhida.silaba }}</span>
-            </h1>    
+                {% for escolhida in silaba_escolhida %}
+                <span class="badge badge-info">{{ escolhida.silaba }}</span>
+                {% endfor %}
+            </h1>
         </div>
         <div class="col-md-4">
         </div>

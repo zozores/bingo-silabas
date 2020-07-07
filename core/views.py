@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core import serializers
 from .models import Silaba, Metrica, Comentario
 from .forms import ComentarioForm
 from datetime import datetime
@@ -7,14 +8,23 @@ import random
 list_silabas = []
 list_sorteadas = []
 
+def serialize_object(obj):
+    return serializers.serialize('xml', obj)
+    
+def deserialize_object(obj):
+    silaba_obj = []
+    for d_obj in serializers.deserialize('xml', obj):
+        silaba_obj.append(d_obj.object)
+    return silaba_obj
+
 def home(request):
     global list_silabas
     global list_sorteadas
     list_sorteadas = []
     list_silabas = []
     list_silabas = list(Silaba.objects.all())
-    request.session['sorteadas'] = list_sorteadas
-    request.session['silabas'] = list_silabas
+    request.session['sorteadas'] = serialize_object(list_sorteadas)
+    request.session['silabas'] = serialize_object(list_silabas)
     return render(request, 'home.html')
 
 def publicar_metrica():
@@ -28,6 +38,8 @@ def silaba_escolhida(lista):
     return silaba
 
 def sortear(request):
+    session_escolhida = None
+    session_sorteadas = None
     metrica = publicar_metrica()
     n_sorteio = metrica[0].sorteios + 1
     metrica.update(sorteios=n_sorteio)
@@ -39,14 +51,15 @@ def sortear(request):
         silaba_escolhida = random.choice(list_silabas)
         list_silabas.remove(silaba_escolhida)
         list_sorteadas.append(silaba_escolhida)
-        request.session['escolhida'] = silaba_escolhida
-        request.session['sorteadas'] = list_sorteadas
-        request.session['silabas'] = list_silabas
-        session_escolhida = request.session.get('escolhida')
-        session_sorteadas = request.session.get('sorteadas')
+        if silaba_escolhida != None:
+            request.session['escolhida'] = serialize_object([silaba_escolhida])
+        request.session['sorteadas'] = serialize_object(list_sorteadas)
+        request.session['silabas'] = serialize_object(list_silabas)
+        session_escolhida = deserialize_object(request.session.get('escolhida'))
+        session_sorteadas = deserialize_object(request.session.get('sorteadas'))
     return render(request, 'sorteio.html', {
-        'silaba_escolhida': silaba_escolhida,
-        'sorteadas': list_sorteadas,
+        'silaba_escolhida': session_escolhida,
+        'sorteadas': session_sorteadas,
     })
 
 def cartelas(request):
