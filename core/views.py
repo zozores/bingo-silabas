@@ -13,6 +13,8 @@ def home(request):
     list_sorteadas = []
     list_silabas = []
     list_silabas = list(Silaba.objects.all())
+    request.session['sorteadas'] = list_sorteadas
+    request.session['silabas'] = list_silabas
     return render(request, 'home.html')
 
 def publicar_metrica():
@@ -37,6 +39,11 @@ def sortear(request):
         silaba_escolhida = random.choice(list_silabas)
         list_silabas.remove(silaba_escolhida)
         list_sorteadas.append(silaba_escolhida)
+        request.session['escolhida'] = silaba_escolhida
+        request.session['sorteadas'] = list_sorteadas
+        request.session['silabas'] = list_silabas
+        session_escolhida = request.session.get('escolhida')
+        session_sorteadas = request.session.get('sorteadas')
     return render(request, 'sorteio.html', {
         'silaba_escolhida': silaba_escolhida,
         'sorteadas': list_sorteadas,
