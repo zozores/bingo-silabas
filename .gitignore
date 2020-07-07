@@ -119,6 +119,7 @@ celerybeat.pid
 # Environments
 .env
 .env.dev
+.env.stg
 !.env.example
 .venv
 env/

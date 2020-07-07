@@ -1,5 +1,5 @@
 {
-    "dev": {
+    "stg": {
         "aws_region": "us-west-2",
         "django_settings": "bingo.settings",
         "profile_name": null,
@@ -7,7 +7,7 @@
         "runtime": "python3.8",
         "s3_bucket": "bingo-zappa-bucket",
         "environment_variables": {
-            "ENVIRONMENT": "DEV"
+            "ENVIRONMENT": "STG"
         }
     },
     "prd": {
