@@ -23,6 +23,7 @@ env = environ.Env(
     DJANGO_ALLOWED_HOSTS=(list, ['*']),
     DJANGO_DB_USE_S3=(bool, False),
     DJANGO_STATIC_USE_S3=(bool, False),
+    DJANGO_SECRET_KEY=(str, get_random_secret_key()),
     DJANGO_MEDIA_ROOT=(str, os.path.join(BASE_DIR, "media")),
 )
 
@@ -36,8 +37,7 @@ elif ENVIRONMENT == 'STG':
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-random_secret_key = get_random_secret_key()
-SECRET_KEY = random_secret_key
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DJANGO_DEBUG')
