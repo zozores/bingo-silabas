@@ -6,6 +6,7 @@
         "project_name": "bingo-app",
         "runtime": "python3.8",
         "s3_bucket": "bingo-zappa-bucket",
+        "log_level": "WARNING",
         "environment_variables": {
             "ENVIRONMENT": "STG"
         }
