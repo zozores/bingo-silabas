@@ -2,7 +2,6 @@
 
 {% block home %}
 <body>
-    <a class="github-fork-ribbon" href="https://github.com/ozorest/bingo-silabas" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
     <div class="container-fluid">
         <div class="jumbotron">
             {% block content %}
@@ -13,10 +12,12 @@
                     <p class="lead" style="text-align: center;">Venha se divertir com as crianças e a família no:</p>
                     <h1 class="display-3" style="text-align: center;">Bingo das Sílabas</h1>
                     <p class="lead" style="text-align: center;">Clique em "Sortear" para começar o jogo e para sortear uma nova sílaba</p>
+                    <br/>
+                    <p style="text-align: center;"><a class="btn btn-lg btn-success" href="{% url "core:sortear" %}" role="button">SORTEAR</a></p>
                     {% else %}
                     <br />
+                    <p style="text-align: center;"><a class="btn btn-lg btn-success" href="{% url "core:sortear" %}" role="button">SORTEAR (OU APERTE F5)</a></p>
                     {% endif %}
-                    <p style="text-align: center;"><a class="btn btn-lg btn-success" href="{% url "core:sortear" %}" role="button">SORTEAR</a></p>
                     {% block button %}
                     {% endblock %}
                     <p style="text-align: center;"><a class="btn btn-lg btn-primary" href="{% url "core:cartelas" %}" target="_blank" role="button">GERAR CARTELAS</a></p>

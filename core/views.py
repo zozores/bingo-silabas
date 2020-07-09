@@ -39,6 +39,7 @@ def silaba_escolhida(lista):
     return silaba
 
 def sortear(request):
+    num_sorteadas = 0
     session_escolhida = None
     session_sorteadas = None
     metrica = publicar_metrica()
@@ -58,9 +59,11 @@ def sortear(request):
         request.session['silabas'] = serialize_object(list_silabas)
         session_escolhida = deserialize_object(request.session.get('escolhida'))
         session_sorteadas = deserialize_object(request.session.get('sorteadas'))
+        num_sorteadas = len(list_sorteadas)
     return render(request, 'sorteio.html', {
         'silaba_escolhida': session_escolhida,
         'sorteadas': session_sorteadas,
+        'num_sorteadas': num_sorteadas,
     })
 
 def cartelas(request):

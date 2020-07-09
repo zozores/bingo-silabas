@@ -9,7 +9,6 @@
     {% if silaba_escolhida != None %}
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <span class="badge badge-light">ID da Sessão: {{ request.session.session_key }}</span><br/>
         </div>
         <div class="col-md-4">
             <h1 style="text-align: center; font-size: 10em;">
@@ -25,7 +24,7 @@
         <div class="col-md-12">
             <div class="card">
                 <h5 class="card-header" style="text-align: center;">
-                    Sorteadas
+                    Sorteadas  ({{ num_sorteadas }})
                 </h5>
                 <div class="card-body">
                     <p class="card-text">
