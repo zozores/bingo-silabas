@@ -23,8 +23,9 @@ def home(request):
     list_sorteadas = []
     list_silabas = []
     list_silabas = list(Silaba.objects.all())
-    request.session['sorteadas'] = serialize_object(list_sorteadas)
-    request.session['silabas'] = serialize_object(list_silabas)
+    request.session.flush()
+    # request.session['sorteadas'] = serialize_object(list_sorteadas)
+    # request.session['silabas'] = serialize_object(list_silabas)
     return render(request, 'home.html')
 
 def publicar_metrica():
