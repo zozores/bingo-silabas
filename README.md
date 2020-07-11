@@ -3,6 +3,8 @@
 Projeto educacional e um passatempo para as crianças e toda a família, desenvolvido em [Python](https://www.python.org) usando o [Django](https://www.djangoproject.com).
 Disponível em https://bingosilabas.ozorest.me
 
+E muitos agradecimentos ao projeto [Zappa](https://github.com/Miserlou/Zappa) que possibiltou o deploy da aplicação na AWS de um jeito fácil e barato.
+
 ## Como rodar localmente
 
 ### Fazendo o git clone
