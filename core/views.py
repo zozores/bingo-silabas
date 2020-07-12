@@ -39,7 +39,7 @@ def sortear(request):
     n_sorteio = metrica[0].sorteios + 1
     metrica.update(sorteios=n_sorteio)
     ######
-    silabas = deserialize_object(request.session.get('silabas'))
+    silabas = deserialize_object(request.session.get('silabas')) if request.session.get('silabas') != None else []
     if len(silabas) == 0:
         escolhida = None
         sorteadas = []
@@ -51,6 +51,7 @@ def sortear(request):
         request.session['silabas'] = serialize_object(silabas)
         request.session['sorteadas'] = serialize_object(sorteadas)
         sorteadas = deserialize_object(request.session.get('sorteadas'))
+        request.session.modified = True
     return render(request, 'sorteio.html', {
         'silaba_escolhida': escolhida,
         'sorteadas': sorteadas,
